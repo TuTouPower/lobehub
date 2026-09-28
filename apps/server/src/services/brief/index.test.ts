@@ -27,8 +27,7 @@ vi.mock('@/server/services/taskRunner', () => ({
   TaskRunnerService: vi.fn().mockImplementation(() => ({ cascadeOnCompletion })),
 }));
 
-// `recordBriefFeedback` dynamically imports the tracing service — stub it so we
-// can assert the action→signal mapping without a DB.
+// Stub tracing writes to assert the action→signal mapping without a DB.
 const { recordFeedback } = vi.hoisted(() => ({ recordFeedback: vi.fn() }));
 vi.mock('@/server/services/llmGenerationTracing', () => ({
   getLLMGenerationTracingService: () => ({ recordFeedback }),
